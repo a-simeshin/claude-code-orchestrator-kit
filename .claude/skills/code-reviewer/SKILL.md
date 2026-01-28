@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Use when reviewing pull requests, providing code feedback, identifying issues, or ensuring code quality standards.
+description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go, Java. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Use when reviewing pull requests, providing code feedback, identifying issues, or ensuring code quality standards.
 ---
 
 # Code Reviewer
@@ -103,12 +103,23 @@ Technical reference guide in `references/common_antipatterns.md`:
 - Security considerations
 - Scalability guidelines
 
+### Java/Spring Boot References
+
+Java-specific guides in `references/`:
+
+- `java_code_review_checklist.md` - Java 17 patterns, SOLID, final, early return
+- `spring_boot_best_practices.md` - Security, JPA (N+1), REST API patterns
+- `java_static_analysis_tools.md` - SpotBugs, PMD, JaCoCo, Spotless (critical checks only)
+- `java_antipatterns.md` - Common mistakes to avoid
+- `java_testing_standards.md` - JUnit 5, Testcontainers, Allure annotations
+
 ## Tech Stack
 
-**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin
-**Frontend:** React, Next.js, React Native, Flutter
-**Backend:** Node.js, Express, GraphQL, REST APIs
-**Database:** PostgreSQL, Prisma, NeonDB, Supabase
+**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin, Java
+**Frontend:** React, Next.js, React Native, Flutter, Vite
+**Backend:** Node.js, Express, GraphQL, REST APIs, Spring Boot
+**Database:** PostgreSQL, Prisma, NeonDB, Supabase, Kafka, Cassandra
+**Build:** npm, pnpm, Maven
 **DevOps:** Docker, Kubernetes, Terraform, GitHub Actions, CircleCI
 **Cloud:** AWS, GCP, Azure
 
@@ -171,6 +182,7 @@ Follow the patterns and practices documented in:
 
 ## Common Commands
 
+### JavaScript/TypeScript Projects
 ```bash
 # Development
 npm run dev
@@ -181,8 +193,32 @@ npm run lint
 # Analysis
 python scripts/code_quality_checker.py .
 python scripts/review_report_generator.py --analyze
+```
 
-# Deployment
+### Java/Maven Projects
+```bash
+# Build & Test
+mvn clean verify
+
+# Code Formatting (Spotless + Palantir)
+mvn spotless:check          # Check formatting
+mvn spotless:apply          # Auto-fix formatting
+
+# Code Coverage (JaCoCo 80%)
+mvn jacoco:report
+mvn jacoco:check
+
+# Static Analysis (critical checks only)
+mvn spotbugs:check          # Null deref, resource leaks, security
+mvn pmd:check               # Dead code, empty blocks, critical bugs
+
+# Integration Tests with Allure
+mvn verify -Pintegration-tests
+mvn allure:serve            # View test report
+```
+
+### Deployment
+```bash
 docker build -t app:latest .
 docker-compose up -d
 kubectl apply -f k8s/
